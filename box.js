@@ -1,4 +1,4 @@
-function Box(x,y,w,h,r,l,id){
+function Box(x,y,w,r,l,id){
 
 this.id = id;
 this.fill = 40;
@@ -7,12 +7,12 @@ var bodyOptions = {
 
 friction: .5,
 restitution: 0,
-angle: r,
+
 
 
 }
 
-this.body = Bodies.rectangle(x,y,w,h,bodyOptions);
+this.body = Bodies.circle(x,y,w/2,bodyOptions);
 this.body.label = l;
 this.body.id = id;
 
@@ -27,7 +27,7 @@ isSensor: true
 
 }
 
-this.anchor = Bodies.rectangle(x,y,10,10,anchorOptions);
+this.anchor = Bodies.circle(x,y,10,anchorOptions);
 World.add(engine.world, this.anchor);
 
 
@@ -48,7 +48,7 @@ World.add(engine.world, this.spring);
 // Set Params
 this.anchor = [x,y];
 this.w = w;
-this.h = h;
+//this.h = h;
 this.r = r;
 
 //Show Function
@@ -69,11 +69,12 @@ this.show = function(){
   }
   fill(this.fill);
   noStroke();
-  rectMode(CENTER)
-  rect(0,0,this.w, this.h);
+  ellipseMode(CENTER)
+  ellipse(0,0,this.w);
 if(debug){
   fill(255)
-text(this.body.id, 0,0)
+  this.fill = color(255,0,0,50);
+text(this.body.id, 0,4)
 }
   pop();
 

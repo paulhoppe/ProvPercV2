@@ -2,6 +2,8 @@ Matter.use(
   'matter-attractors'
 );
 
+var mousePositions = [];
+
 var Engine = Matter.Engine,
 //  Render = Matter.Render,
     World = Matter.World,
@@ -14,8 +16,8 @@ var Engine = Matter.Engine,
 let img;
 let img2;
 
-let largeRect = 119;
-let smallRect = 40;
+let largeCirc = 118;
+let smallCirc = 30;
 let speed = 0.0001;
 var boundWidth = 27;
 var playMode = "sustain"
@@ -49,44 +51,73 @@ function manualPreload(){
 function setup() {
   var canvas = createCanvas(1000, 1000);
 
-//  debug = true;
+  //debug = true;
 
   manualPreload();
 
   textFont(myFont)
   textSize(12);
+  textAlign(CENTER)
 
   engine = Engine.create();
   world = Engine.world;
-  engine.world.gravity.y = .01;
+  engine.world.gravity.y = 0;
   Engine.run(engine);
 
 
 
-  img = loadImage("assets/Provocative_Percussion_Blank.jpg");
+  img = loadImage("assets/Provocative_Percussion_2_blank.jpg");
+  img2 = loadImage("assets/Provocative_Percussion_2.jpg");
 
-   boxes.push(new Box(280,280,largeRect,largeRect,.83, "large"));
-   boxes.push(new Box(140,367,largeRect,largeRect,.08, "large"));
-   boxes.push(new Box(685,342,largeRect,largeRect,.5, "large"));
-   boxes.push(new Box(851,289,largeRect,largeRect,1.25, "large"));
-   boxes.push(new Box(244,570,largeRect,largeRect,.64, "large"));
-   boxes.push(new Box(154,679,largeRect,largeRect,.38, "large"));
-   boxes.push(new Box(351,802,largeRect,largeRect,1.31, "large"));
-   boxes.push(new Box(664,669,largeRect,largeRect,-.12, "large"));
-   boxes.push(new Box(844,584,largeRect,largeRect,1.11, "large"));
-   boxes.push(new Box(782,791,largeRect,largeRect,.275, "large"));
+   boxes.push(new Box(185,368,largeCirc,largeCirc, "large"));
+   boxes.push(new Box(450,366,largeCirc,largeCirc, "large"));
+   boxes.push(new Box(720,340,largeCirc,largeCirc, "large"));
+   boxes.push(new Box(833,373,largeCirc,largeCirc, "large"));
+   boxes.push(new Box(140,544,largeCirc,largeCirc, "large"));
+   boxes.push(new Box(243,595,largeCirc,largeCirc, "large"));
+   boxes.push(new Box(476,642,largeCirc,largeCirc, "large"));
+   boxes.push(new Box(575,575,largeCirc,largeCirc, "large"));
+   boxes.push(new Box(705,695,largeCirc,largeCirc, "large"));
+   boxes.push(new Box(870,642,largeCirc,largeCirc, "large"));
+   boxes.push(new Box(146,782,largeCirc,largeCirc, "large"));
+   boxes.push(new Box(390,770,largeCirc,largeCirc, "large"));
+   boxes.push(new Box(510,785,largeCirc,largeCirc, "large"));
 
-   boxes.push(new Box(479,281,smallRect,smallRect,-.218, "small"));
-   boxes.push(new Box(80,470,smallRect,smallRect,.5, "small"));
-   boxes.push(new Box(441,440,smallRect,smallRect,.28, "small"));
-   boxes.push(new Box(547,484,smallRect,smallRect,.65, "small"));
-   boxes.push(new Box(844,410,smallRect,smallRect,.274, "small"));
-   boxes.push(new Box(400,598,smallRect,smallRect,.266, "small"));
-   boxes.push(new Box(439,660,smallRect,smallRect,-.1, "small"));
-   boxes.push(new Box(587,747,smallRect,smallRect,-.59, "small"));
-   boxes.push(new Box(256,838,smallRect,smallRect,.26, "small"));
+   boxes.push(new Box(288,353,smallCirc,smallCirc, "small"));
+   boxes.push(new Box(310,370,smallCirc,smallCirc, "small"));
+   boxes.push(new Box(579,345,smallCirc,smallCirc, "small"));
+   boxes.push(new Box(527,419,smallCirc,smallCirc, "small"));
+   boxes.push(new Box(537,448,smallCirc,smallCirc, "small"));
 
+   boxes.push(new Box(738,422,smallCirc,smallCirc, "small"));
+   // sketch.js:178 738.583984375 422.9424133300781
+   boxes.push(new Box(284,495,smallCirc,smallCirc, "small"));
+   // sketch.js:178 284.1271057128906 495.7465515136719
+   boxes.push(new Box(428,530,smallCirc,smallCirc, "small"));
+   // sketch.js:178 428.4447937011719 530.7664794921875
+   boxes.push(new Box(856,527,smallCirc,smallCirc, "small"));
+   // sketch.js:178 856.6192626953125 527.7929077148438
+   boxes.push(new Box(836,550,smallCirc,smallCirc, "small"));
+   // sketch.js:178 836.7461547851562 550.3779907226562
+   boxes.push(new Box(665,601,smallCirc,smallCirc, "small"));
+   // sketch.js:178 665.4571533203125 601.5300903320312
+   boxes.push(new Box(369,678,smallCirc,smallCirc, "small"));
+   // sketch.js:178 369.71490478515625 678.476318359375
+   boxes.push(new Box(339,675,smallCirc,smallCirc, "small"));
+   // sketch.js:178 339.75262451171875 675.816650390625
+   boxes.push(new Box(182,650,smallCirc,smallCirc, "small"));
+   // sketch.js:178 182.4681396484375 650.938232421875
+   boxes.push(new Box(222,762,smallCirc,smallCirc, "small"));
+   // sketch.js:178 222.79861450195312 762.0236206054688
+   boxes.push(new Box(230, 794,smallCirc,smallCirc, "small"));
 
+   //230 794
+   boxes.push(new Box(637, 779,smallCirc,smallCirc, "small"));
+//   sketch.js:200 637 779
+boxes.push(new Box(837, 801,smallCirc,smallCirc, "small"));
+   // sketch.js:200 837 806
+   boxes.push(new Box(862, 787,smallCirc,smallCirc, "small"));
+   // sketch.js:200 863 791
 
 
    boxes.forEach((addID, i) => {
@@ -119,9 +150,9 @@ function setup() {
         }
 */
     //  boxes[pairs[0].bodyA.id].fill = 255;
-      boxes[pairs[0].bodyB.id].fill = 255;
-      boxes[pairs[0].bodyA.id].fill = 255;
-      drums[Math.floor(Math.random()*drums.length)].play();
+      // boxes[pairs[0].bodyB.id].fill = 255;
+      // boxes[pairs[0].bodyA.id].fill = 255;
+//drums[Math.floor(Math.random()*drums.length)].play();
 
   });
 
@@ -130,7 +161,7 @@ var canvasMouse = Mouse.create(canvas.elt);
 canvasMouse.pixelRatio = pixelDensity();
 var options = {
   mouse:canvasMouse,
-  stiffness: .2,
+  stiffness: 1,
 };
 
 
@@ -142,6 +173,7 @@ World.add(engine.world, mConstraint);
 function draw() {
 
 image(img, 0, 0)
+//image(img2, 0, 0)
 
 for(var i=0; i<boxes.length; i++){
   boxes[i].show();
@@ -171,14 +203,17 @@ for(var i=0; i<attractors.length; i++){
 
 function mousePressed(){
 
-//drums[0].play();
-//console.log()
+// push.mousePositions[mouseX,mouseY]
+// console.log(mousePositions[0])
+console.log(mouseX,mouseY)
 
 }
 
+
+
 function mouseDragged(){
-//boxes.push(new Box(mouseX,mouseY,smallRect,smallRect,0))
-  //  boxes.push(new Box(mouseX,mouseY,largeRect,largeRect,0))
+//boxes.push(new Box(mouseX,mouseY,smallCirc,smallCirc,0))
+  //  boxes.push(new Box(mouseX,mouseY,largeCirc,largeCirc,0))
 }
 
 function windowResized(){
