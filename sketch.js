@@ -51,7 +51,7 @@ function manualPreload(){
 function setup() {
   var canvas = createCanvas(1000, 1000);
 
-  //debug = true;
+  debug = true;
 
   manualPreload();
 
@@ -74,7 +74,7 @@ function setup() {
    boxes.push(new Box(720,340,largeCirc,largeCirc, "large"));
    boxes.push(new Box(833,373,largeCirc,largeCirc, "large"));
    boxes.push(new Box(140,544,largeCirc,largeCirc, "large"));
-   boxes.push(new Box(243,595,largeCirc,largeCirc, "large"));
+   boxes.push(new Box(247,595,largeCirc,largeCirc, "large"));
    boxes.push(new Box(476,642,largeCirc,largeCirc, "large"));
    boxes.push(new Box(575,575,largeCirc,largeCirc, "large"));
    boxes.push(new Box(705,695,largeCirc,largeCirc, "large"));
@@ -84,14 +84,14 @@ function setup() {
    boxes.push(new Box(510,785,largeCirc,largeCirc, "large"));
 
    boxes.push(new Box(288,353,smallCirc,smallCirc, "small"));
-   boxes.push(new Box(310,370,smallCirc,smallCirc, "small"));
+   boxes.push(new Box(314,370,smallCirc,smallCirc, "small"));
    boxes.push(new Box(579,345,smallCirc,smallCirc, "small"));
    boxes.push(new Box(527,419,smallCirc,smallCirc, "small"));
    boxes.push(new Box(537,448,smallCirc,smallCirc, "small"));
 
    boxes.push(new Box(738,422,smallCirc,smallCirc, "small"));
    // sketch.js:178 738.583984375 422.9424133300781
-   boxes.push(new Box(284,495,smallCirc,smallCirc, "small"));
+   boxes.push(new Box(290,495,smallCirc,smallCirc, "small"));
    // sketch.js:178 284.1271057128906 495.7465515136719
    boxes.push(new Box(428,530,smallCirc,smallCirc, "small"));
    // sketch.js:178 428.4447937011719 530.7664794921875
@@ -116,7 +116,7 @@ function setup() {
 //   sketch.js:200 637 779
 boxes.push(new Box(837, 801,smallCirc,smallCirc, "small"));
    // sketch.js:200 837 806
-   boxes.push(new Box(862, 787,smallCirc,smallCirc, "small"));
+   boxes.push(new Box(864, 787,smallCirc,smallCirc, "small"));
    // sketch.js:200 863 791
 
 
@@ -135,7 +135,7 @@ boxes.push(new Box(837, 801,smallCirc,smallCirc, "small"));
 
         //console.log("colision between " + pairs[0].bodyA.label + " - " + pairs[0].bodyB.label);
 
-/*
+
         if(pairs[0].bodyA.label == "large" && pairs[0].bodyB.label == "large"){
             drums[1].play();
         }
@@ -148,11 +148,11 @@ boxes.push(new Box(837, 801,smallCirc,smallCirc, "small"));
         else if(pairs[0].bodyA.label == "large" && pairs[0].bodyA.label == "small"){
             drums[4].play();
         }
-*/
+
     //  boxes[pairs[0].bodyA.id].fill = 255;
-      // boxes[pairs[0].bodyB.id].fill = 255;
-      // boxes[pairs[0].bodyA.id].fill = 255;
-//drums[Math.floor(Math.random()*drums.length)].play();
+      boxes[pairs[0].bodyB.id].fill = 255;
+      boxes[pairs[0].bodyA.id].fill = 255;
+drums[Math.floor(Math.random()*drums.length)].play();
 
   });
 
