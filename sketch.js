@@ -43,6 +43,10 @@ var mPY = 0;
 var mRX = 0;
 var mRY = 0;
 
+var gravX = 0;
+var gravY = 0;
+
+gravMax = 3;
 
 const frameDiv = 0.001;
 
@@ -67,7 +71,8 @@ function setup() {
 
   engine = Engine.create();
   world = Engine.world;
-  engine.world.gravity.y = 0;
+  engine.world.gravity.y = gravY;
+  engine.world.gravity.x = gravX;
   Engine.run(engine);
 
   img = loadImage("assets/Provocative_Percussion_2_blank.jpg");
@@ -140,22 +145,22 @@ boxes.push(new Box(837, 801,smallCirc,smallCirc, "small"));
 
 
         if(pairs[0].bodyA.label == "large" && pairs[0].bodyB.label == "large"){
-          //  drums[1].play();
+         drums[1].play();
         }
         else if(pairs[0].bodyA.label == "small" && pairs[0].bodyA.label == "small"){
-          //  drums[0].play();
+            drums[0].play();
         }
         else if(pairs[0].bodyA.label == "small" && pairs[0].bodyA.label == "large"){
-        //    drums[2].play();
+           drums[2].play();
         }
         else if(pairs[0].bodyA.label == "large" && pairs[0].bodyA.label == "small"){
-          //  drums[4].play();
+            drums[4].play();
         }
 
-    //  boxes[pairs[0].bodyA.id].fill = 255;
-    //  boxes[pairs[0].bodyB.id].fill = 255;
-    //  boxes[pairs[0].bodyA.id].fill = 255;
-//drums[Math.floor(Math.random()*drums.length)].play();
+      boxes[pairs[0].bodyA.id].fill = 255;
+  //  boxes[pairs[0].bodyB.id].fill = 255;
+      boxes[pairs[0].bodyA.id].fill = 255;
+drums[Math.floor(Math.random()*drums.length)].play();
 
   });
 
@@ -198,11 +203,12 @@ for(var i=0; i<attractors.length; i++){
 //attractors[0].show();
 }
 
+engine.world.gravity.x = map(gravX,-windowWidth,windowWidth,-gravMax,gravMax);
+engine.world.gravity.y = map(gravY,-windowWidth,windowWidth,-gravMax,gravMax);
 
-engine.world.gravity.x = (mPX + mRX)/windowWidth;
-//console.log(engine.world.gravity.x);
-engine.world.gravity.y = (mPY + mRY)/windowHeight;
-//console.log(engine.world.gravity.y);
+console.log("gravX="+gravX)
+console.log("gravY="+gravY)
+
 
 }
 
@@ -212,39 +218,53 @@ function mousePressed(){
 mPX = mouseX;
 mPY = mouseY;
 
-//console.log("mPX="+mPX+" mPY="+mPY);
-
-// if(grav){
-// engine.world.gravity.y = 0;
-// grav = false;
-// } else {
-// engine.world.gravity.y = .5;
-// grav = true;
-// }
-
-// push.mousePositions[mouseX,mouseY]
-// console.log(mousePositions[0])
-// console.log(mouseX,mouseY)
-
 }
 
 function mouseReleased() {
   mRX = mouseX;
   mRY = mouseY;
-  console.log("mRX="+mRX+" mRY="+mRY);
+
+if(mRX<mPX){
+  gravX = mRX-mPX
+} else if(mRX>mPX){
+  gravX = -(mPX-mRX)
+}
+
+if(mRY<mPY){
+  gravY = mRY-mPY
+} else if(mRY>mPY){
+  gravY = -(mPY-mRY)
+}
+
+ // console.log("gravX="+gravX);
+ //  console.log("gravY="+gravY);
+
+
+  // engine.world.gravity.x = map(gravX,-windowWidth/2,windowWidth/2,-gravMax,gravMax);
+  // engine.world.gravity.y = map(gravY,-windowWidth/2,windowWidth/2,-gravMax,gravMax)
+//  console.log("gravX="+engine.world.gravity.x+" gravY="+engine.world.gravity.y);
 }
 
 function mouseDragged(){
-// var dragGravY = (mPY/windowHeight + mouseY/windowHeight);
-// var dragGravX = (mPX/windowWidth + mouseX/windowWidth);
-// if(mouseY<=windowHeight/2){
-// dragGrav = (mouseY-windowHeight/2)/windowHeight
-// } else {
-// dragGrav = mouseY/windowHeight
-// }
-// engine.world.gravity.y = dragGravY;
-// engine.world.gravity.x = dragGravX;
-// console.log("dragGravX = "+dragGravX+" dragGravY = "+dragGravY);
+
+if(mouseX>pmouseX){
+  gravX += (mouseX-pmouseX)/(windowWidth);
+} else if(mouseX<pmouseX){
+  gravX += -(mouseX-pmouseX)/(windowWidth);
+}
+
+if(mouseY>pmouseY){
+  gravY += (mouseY-pmouseY)/(windowHeight);
+} else if(mouseY<pmouseY){
+  gravY += -(mouseY-pmouseY)/(windowHeight);
+}
+
+
+
+
+//console.log("gravX="+engine.world.gravity.x+" gravY="+engine.world.gravity.y);
+
+
 }
 
 function windowResized(){
