@@ -24,6 +24,7 @@ var playMode = "sustain"
 
 var mConstraint;
 
+var grav = true;
 
 var engine;
 var world;
@@ -36,6 +37,11 @@ var drums = [];
 var debug;
 
 var myFont
+
+var mPX = 0;
+var mPY = 0;
+var mRX = 0;
+var mRY = 0;
 
 
 const frameDiv = 0.001;
@@ -51,7 +57,7 @@ function manualPreload(){
 function setup() {
   var canvas = createCanvas(1000, 1000);
 
-  debug = true;
+  //debug = true;
 
   manualPreload();
 
@@ -64,15 +70,13 @@ function setup() {
   engine.world.gravity.y = 0;
   Engine.run(engine);
 
-
-
   img = loadImage("assets/Provocative_Percussion_2_blank.jpg");
   img2 = loadImage("assets/Provocative_Percussion_2.jpg");
 
    boxes.push(new Box(185,368,largeCirc,largeCirc, "large"));
    boxes.push(new Box(450,366,largeCirc,largeCirc, "large"));
    boxes.push(new Box(720,340,largeCirc,largeCirc, "large"));
-   boxes.push(new Box(833,373,largeCirc,largeCirc, "large"));
+   boxes.push(new Box(835,373,largeCirc,largeCirc, "large"));
    boxes.push(new Box(140,544,largeCirc,largeCirc, "large"));
    boxes.push(new Box(247,595,largeCirc,largeCirc, "large"));
    boxes.push(new Box(476,642,largeCirc,largeCirc, "large"));
@@ -88,7 +92,6 @@ function setup() {
    boxes.push(new Box(579,345,smallCirc,smallCirc, "small"));
    boxes.push(new Box(527,419,smallCirc,smallCirc, "small"));
    boxes.push(new Box(537,448,smallCirc,smallCirc, "small"));
-
    boxes.push(new Box(738,422,smallCirc,smallCirc, "small"));
    // sketch.js:178 738.583984375 422.9424133300781
    boxes.push(new Box(290,495,smallCirc,smallCirc, "small"));
@@ -137,22 +140,22 @@ boxes.push(new Box(837, 801,smallCirc,smallCirc, "small"));
 
 
         if(pairs[0].bodyA.label == "large" && pairs[0].bodyB.label == "large"){
-            drums[1].play();
+          //  drums[1].play();
         }
         else if(pairs[0].bodyA.label == "small" && pairs[0].bodyA.label == "small"){
-            drums[0].play();
+          //  drums[0].play();
         }
         else if(pairs[0].bodyA.label == "small" && pairs[0].bodyA.label == "large"){
-            drums[2].play();
+        //    drums[2].play();
         }
         else if(pairs[0].bodyA.label == "large" && pairs[0].bodyA.label == "small"){
-            drums[4].play();
+          //  drums[4].play();
         }
 
     //  boxes[pairs[0].bodyA.id].fill = 255;
-      boxes[pairs[0].bodyB.id].fill = 255;
-      boxes[pairs[0].bodyA.id].fill = 255;
-drums[Math.floor(Math.random()*drums.length)].play();
+    //  boxes[pairs[0].bodyB.id].fill = 255;
+    //  boxes[pairs[0].bodyA.id].fill = 255;
+//drums[Math.floor(Math.random()*drums.length)].play();
 
   });
 
@@ -166,7 +169,7 @@ var options = {
 
 
 mConstraint = MouseConstraint.create(engine, options);
-World.add(engine.world, mConstraint);
+//World.add(engine.world, mConstraint);
 
 }
 
@@ -196,28 +199,61 @@ for(var i=0; i<attractors.length; i++){
 }
 
 
-
+engine.world.gravity.x = (mPX + mRX)/windowWidth;
+//console.log(engine.world.gravity.x);
+engine.world.gravity.y = (mPY + mRY)/windowHeight;
+//console.log(engine.world.gravity.y);
 
 }
 
 
 function mousePressed(){
 
+mPX = mouseX;
+mPY = mouseY;
+
+//console.log("mPX="+mPX+" mPY="+mPY);
+
+// if(grav){
+// engine.world.gravity.y = 0;
+// grav = false;
+// } else {
+// engine.world.gravity.y = .5;
+// grav = true;
+// }
+
 // push.mousePositions[mouseX,mouseY]
 // console.log(mousePositions[0])
-console.log(mouseX,mouseY)
+// console.log(mouseX,mouseY)
 
 }
 
-
+function mouseReleased() {
+  mRX = mouseX;
+  mRY = mouseY;
+  console.log("mRX="+mRX+" mRY="+mRY);
+}
 
 function mouseDragged(){
-//boxes.push(new Box(mouseX,mouseY,smallCirc,smallCirc,0))
-  //  boxes.push(new Box(mouseX,mouseY,largeCirc,largeCirc,0))
+// var dragGravY = (mPY/windowHeight + mouseY/windowHeight);
+// var dragGravX = (mPX/windowWidth + mouseX/windowWidth);
+// if(mouseY<=windowHeight/2){
+// dragGrav = (mouseY-windowHeight/2)/windowHeight
+// } else {
+// dragGrav = mouseY/windowHeight
+// }
+// engine.world.gravity.y = dragGravY;
+// engine.world.gravity.x = dragGravX;
+// console.log("dragGravX = "+dragGravX+" dragGravY = "+dragGravY);
 }
 
 function windowResized(){
  resizeCanvas(windowWidth, windowHeight);
 // console.log(windowWidth, windowHeight);
 
+}
+
+function doubleClicked(){
+  engine.world.gravity.y = 0;
+  engine.world.gravity.x = 0;
 }
