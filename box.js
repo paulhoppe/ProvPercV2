@@ -64,7 +64,7 @@ this.show = function(){
   translate(pos.x, pos.y);
   rotate(angle);
    if(this.fill > 40){
-       this.fill -= 25;
+      this.fill -= 25;
    }
   fill(this.fill);
   noStroke();

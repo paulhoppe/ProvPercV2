@@ -145,22 +145,22 @@ boxes.push(new Box(837, 801,smallCirc,smallCirc, "small"));
 
 
         if(pairs[0].bodyA.label == "large" && pairs[0].bodyB.label == "large"){
-         drums[1].play();
+      //   drums[1].play();
         }
         else if(pairs[0].bodyA.label == "small" && pairs[0].bodyA.label == "small"){
-            drums[0].play();
+      //      drums[0].play();
         }
         else if(pairs[0].bodyA.label == "small" && pairs[0].bodyA.label == "large"){
-           drums[2].play();
+    //       drums[2].play();
         }
         else if(pairs[0].bodyA.label == "large" && pairs[0].bodyA.label == "small"){
-            drums[4].play();
+    //        drums[4].play();
         }
 
-      boxes[pairs[0].bodyA.id].fill = 255;
+    //  boxes[pairs[0].bodyA.id].fill = 255;
   //  boxes[pairs[0].bodyB.id].fill = 255;
-      boxes[pairs[0].bodyA.id].fill = 255;
-drums[Math.floor(Math.random()*drums.length)].play();
+    //  boxes[pairs[0].bodyA.id].fill = 255;
+//drums[Math.floor(Math.random()*drums.length)].play();
 
   });
 
